@@ -7,6 +7,7 @@ using Emgu.CV.Features2D;
 using Emgu.CV.Flann;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+using iRecon.LogManager;
 
 namespace iRecon.DrawManager
 {
@@ -16,6 +17,7 @@ namespace iRecon.DrawManager
                                      out VectorOfKeyPoint observedKeyPoints, VectorOfVectorOfDMatch matches, out Mat mask,
                                      out Mat homography, out long score)
         {
+            ErrInfLogger.LockInstance.InfoLog("Start of the FindMatch");
             int k = 2;
             double uniquenessThreshold = 0.80;
 
@@ -25,18 +27,18 @@ namespace iRecon.DrawManager
             modelKeyPoints = new VectorOfKeyPoint();
             observedKeyPoints = new VectorOfKeyPoint();
 
-            using (UMat uModelImage = modelImage.GetUMat(AccessType.Read))
-            using (UMat uObservedImage = observedImage.GetUMat(AccessType.Read))
-            {
+            //using (UMat uModelImage = modelImage.GetUMat(AccessType.Read))
+            //using (UMat uObservedImage = observedImage.GetUMat(AccessType.Read))
+            //{
                 KAZE featureDetector = new KAZE();
 
                 Mat modelDescriptors = new Mat();
-                featureDetector.DetectAndCompute(uModelImage, null, modelKeyPoints, modelDescriptors, false);
+                featureDetector.DetectAndCompute(modelImage, null, modelKeyPoints, modelDescriptors, false);
 
                 watch = Stopwatch.StartNew();
 
                 Mat observedDescriptors = new Mat();
-                featureDetector.DetectAndCompute(uObservedImage, null, observedKeyPoints, observedDescriptors, false);
+                featureDetector.DetectAndCompute(observedImage, null, observedKeyPoints, observedDescriptors, false);
 
                 // KdTree for faster results / less accuracy
                 using (var ip = new Emgu.CV.Flann.KdTreeIndexParams())
@@ -73,8 +75,9 @@ namespace iRecon.DrawManager
                 }
                 watch.Stop();
 
-            }
+            //}
             matchTime = watch.ElapsedMilliseconds;
+            ErrInfLogger.LockInstance.InfoLog("End of the FindMatch");
         }
 
         /// Draw the model image and observed image, the matched features and homography projection.
@@ -84,6 +87,7 @@ namespace iRecon.DrawManager
         /// <returns>The model image and observed image, the matched features and homography projection.</returns>
         public static Mat Draw(Mat modelImage, Mat observedImage, out long matchTime, out long score)
         {
+            ErrInfLogger.LockInstance.InfoLog("Start of the Draw");
             Mat homography;
             VectorOfKeyPoint modelKeyPoints;
             VectorOfKeyPoint observedKeyPoints;
@@ -125,8 +129,8 @@ namespace iRecon.DrawManager
                 }
                 #endregion
 
+                ErrInfLogger.LockInstance.InfoLog("End of the Draw");
                 return result;
-
             }
         }
     }
