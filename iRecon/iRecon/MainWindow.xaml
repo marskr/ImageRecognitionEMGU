@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local1="clr-namespace:iRecon.DataManager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="600">
+        Title="MainWindow" Height="350" Width="810">
     <Grid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
             <Button Click="btn_DataProcess" Margin="5,5,0,0" FontFamily="Arial" FontSize="16" Height="50" Width="200" VerticalAlignment="Top">
@@ -14,11 +14,14 @@
             <Button Click="btn_DataShow" Margin="5,5,0,0" FontFamily="Arial" FontSize="16" Height="50" Width="200" VerticalAlignment="Top">
                 <TextBlock TextWrapping="Wrap" Text="Show image similarity" />
             </Button>
+            <Button Click="btn_Predict" Margin="5,5,0,0" FontFamily="Arial" FontSize="16" Height="50" Width="200" VerticalAlignment="Top">
+                <TextBlock TextWrapping="Wrap" Text="Predict!" />
+            </Button>
             <WrapPanel>
-                <TextBlock Margin="2, 15, 0, 0"  Text="Photo name: " FontFamily="Arial" FontSize="16" Height="20" Width="100"/>
-                <TextBox Margin="0, 15, 0,4" Name="txtPhotoPath" Height="20" Width="70"/>
+                <TextBlock Margin="5, 15, 0, 0"  Text="Photo name: " FontFamily="Arial" FontSize="16" Height="20" Width="100"/>
+                <TextBox Margin="0, 15, 0, 0" Name="txtPhotoPath" Height="20" Width="70"/>
             </WrapPanel> 
         </StackPanel>
-        <DataGrid Margin="0, 50, 0, 0" Name="ResultsTable" ColumnWidth="*"/>
+        <DataGrid Margin="5, 60, 5, 5" Name="ResultsTable" ColumnWidth="*"/>
     </Grid>
 </Window>
