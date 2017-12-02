@@ -8,6 +8,8 @@ namespace iRecon.LogManager
     {
         abstract public void InfoLog(string s_text);
         abstract public void ErrorLog(string s_text);
+        abstract public void ScoreLog(string s_text);
+        abstract public void MTimeLog(string s_text);
     }
     public sealed class ErrInfLogger : LoggingManager
     {
@@ -39,6 +41,14 @@ namespace iRecon.LogManager
         {
             WriteLog(LogType.ERROR_LOG, s_text);
         }
+        public override void ScoreLog(string s_text)
+        {
+            WriteLog(LogType.SCORE_LOG, s_text);
+        }
+        public override void MTimeLog(string s_text)
+        {
+            WriteLog(LogType.MTIME_LOG, s_text);
+        }
         private void WriteLog(LogType level, string s_text)
         {
             string s_pretext;
@@ -46,6 +56,8 @@ namespace iRecon.LogManager
             {
                 case LogType.INFO_LOG: s_pretext = DateTime.Now.ToString(s_FormatOfDatetime) + " (INFO_LOG)    "; break;
                 case LogType.ERROR_LOG: s_pretext = DateTime.Now.ToString(s_FormatOfDatetime) + " (ERROR_LOG)    "; break;
+                case LogType.SCORE_LOG: s_pretext = DateTime.Now.ToString(s_FormatOfDatetime) + " (SCORE_LOG)    "; break;
+                case LogType.MTIME_LOG: s_pretext = DateTime.Now.ToString(s_FormatOfDatetime) + " (MATCHTIME_LOG)    "; break;
                 default: s_pretext = string.Empty; break;
             }
             WritePreparedLine(s_pretext + s_text);
@@ -68,7 +80,9 @@ namespace iRecon.LogManager
         private enum LogType
         {
             INFO_LOG,
-            ERROR_LOG
+            ERROR_LOG,
+            SCORE_LOG,
+            MTIME_LOG
         }
         public static ErrInfLogger LockInstance
         {

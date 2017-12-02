@@ -1,34 +1,34 @@
-﻿using System;
+﻿using iRecon.LogManager;
+using iRecon.XMLManager;
+using System.Collections.Generic;
 using System.IO;
-using System.Windows.Data;
 
 namespace iRecon.DataManager
 {
-    [ValueConversion(typeof(int), typeof(string))]
-    public class SimpleConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            return value.ToString();
-        }
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            int returnedValue;
-
-            if (int.TryParse((string)value, out returnedValue))
-            {
-                return returnedValue;
-            }
-
-            throw new Exception("The text is not a number");
-        }
-    }
     public sealed class SettingsContainer
     {
         private static SettingsContainer SingletonInstance = null;
         private static readonly object Lock = new object();
 
-        public const int i_testImageOffset = 95, i_basicImageOffset = 77;
+        public int i_TestImageOffset { get { return DeserializeTestIOff()[0].i_TestImageOffset; } }
+        public int i_BasicImageOffset { get { return DeserializeTestIOff()[0].i_BasicImageOffset; } }
+        public string s_RecoImgFolder { get { return DeserializeTestIOff()[0].s_RecoImgFolder; } }
+        public string s_TestImgDir { get { return DeserializeTestIOff()[0].s_TestImgDir; } }
+        public int i_K { get { return DeserializeTestIOff()[0].i_K; } }
+        public double d_UniquenessThreshold { get { return DeserializeTestIOff()[0].d_UniquenessThreshold; } }
+
+        private List<Data> DeserializeTestIOff()
+        {
+            ErrInfLogger.LockInstance.InfoLog("Start of the DeserializeTestIOff");
+
+            SerializationManager<ObjectToUse> SM = new SerializationManager<ObjectToUse>(SingletonStorage.Instance.s_Path);
+            ObjectToUse OTU = new ObjectToUse();
+            OTU = SM.Deserialize();
+
+            ErrInfLogger.LockInstance.InfoLog("End of the DeserializeTestIOff");
+            return OTU.s_DataList;
+        }
+        
         public string s_Path { get { return GetPath(); } }
         public string GetPath() { return Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location); }
 
