@@ -25,13 +25,16 @@ namespace iRecon.IRecoManager
             // the path to the library basic images (reco_settings dir)
             public string s_ImageBasicPath { get; set; } = string.Empty;
             public long l_Score { get; set; } = 0;
-            public long l_MatchTime { get; set; } = 0;
+            public double l_MatchTime { get; set; } = 0;
         }
 
         /// <summary>
         /// List generated to store the data bounded with processed images (among others score obtained by image and time of calculation).
         /// </summary>
         public List<ImageParameters> l_imgList = new List<ImageParameters>();
+        /// <summary>
+        /// List generated to store data 
+        /// </summary>
         public List<string> l_basicImgPath = new List<string>();
 
         /// <summary>
@@ -56,6 +59,7 @@ namespace iRecon.IRecoManager
         private void ProcessImage(string s_testImage, string s_basicImage)
         {
             ErrInfLogger.LockInstance.InfoLog("Start of the ProcessImage");
+
             if (s_testImage == s_basicImage)
             {
                 ErrInfLogger.LockInstance.InfoLog("End of the ProcessImage");
@@ -65,18 +69,19 @@ namespace iRecon.IRecoManager
             try
             {
                 long l_score;
-                long l_matchTime;
+                double l_matchTime;
 
-                KeyValuePair<long, long> pair = ComputeImages(s_testImage, s_basicImage);
+                KeyValuePair<long, double> pair = ComputeImages(s_testImage, s_basicImage);
                 l_score = pair.Key;
                 l_matchTime = pair.Value;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("PROBLEM WITH PROCESSING AN IMAGE!");
-                MessageBox.Show("{0}", ex.ToString());
+                //MessageBox.Show("{0}", ex.ToString());
                 ErrInfLogger.LockInstance.ErrorLog(ex.ToString());
             }
+
             ErrInfLogger.LockInstance.InfoLog("End of the ProcessImage");
         }
 
@@ -86,24 +91,25 @@ namespace iRecon.IRecoManager
         /// <param name="s_testImage"> The test image directory. </param>
         /// <param name="s_basicImage"> The basic library image directory. </param>
         /// <returns> Method returns a tuple, which contains score and matching time fields. </returns>
-        KeyValuePair<long, long> ComputeImages(string s_testImage, string s_basicImage)
+        KeyValuePair<long, double> ComputeImages(string s_testImage, string s_basicImage)
         {
             ErrInfLogger.LockInstance.InfoLog("Start of the ComputeImages");
-            long l_score;
-            long l_matchTime;
-            using (Mat modelImage = CvInvoke.Imread(s_basicImage, ImreadModes.Color))
-            {
-                using (Mat observedImage = CvInvoke.Imread(s_testImage, ImreadModes.Color))
-                {
-                    Mat homography;
-                    VectorOfKeyPoint modelKeyPoints;
-                    VectorOfKeyPoint observedKeyPoints;
 
-                    using (VectorOfVectorOfDMatch matches = new VectorOfVectorOfDMatch())
+            long l_score;
+            double l_matchTime;
+            using (Mat m_modelImage = CvInvoke.Imread(s_basicImage, ImreadModes.Color))
+            {
+                using (Mat m_observedImage = CvInvoke.Imread(s_testImage, ImreadModes.Color))
+                {
+                    Mat m_homography;
+                    VectorOfKeyPoint v_modelKeyPoints;
+                    VectorOfKeyPoint v_observedKeyPoints;
+
+                    using (VectorOfVectorOfDMatch v_matches = new VectorOfVectorOfDMatch())
                     {
-                        Mat mask;
-                        DrawMatches.FindMatch(modelImage, observedImage, out l_matchTime, out modelKeyPoints,
-                                              out observedKeyPoints, matches, out mask, out homography, out l_score);
+                        Mat m_mask;
+                        DrawMatches.FindMatch(m_modelImage, m_observedImage, out l_matchTime, out v_modelKeyPoints,
+                                              out v_observedKeyPoints, v_matches, out m_mask, out m_homography, out l_score);
                         string s_score = "The score obtained is " + l_score.ToString();
                         string s_matchTime = "The time to obtain score is " + l_matchTime.ToString() + " ms";
                         ErrInfLogger.LockInstance.ScoreLog(s_score);
@@ -119,8 +125,9 @@ namespace iRecon.IRecoManager
                     });
                 }
             }
+
             ErrInfLogger.LockInstance.InfoLog("End of the ComputeImages");
-            return new KeyValuePair<long, long>(l_score, l_matchTime);
+            return new KeyValuePair<long, double>(l_score, l_matchTime);
         }
     }
 }

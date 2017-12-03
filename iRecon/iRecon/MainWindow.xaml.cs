@@ -67,7 +67,7 @@ namespace iRecon
                     string s_imgPath = SettingsContainer.Instance.s_Path + SettingsContainer.Instance.s_TestImgDir +
                                                              txtPhotoPath2.Text + ".jpg";
                     long l_score;
-                    long l_matchTime;
+                    double l_matchTime;
 
                     using (Mat modelImage = CvInvoke.Imread(SettingsContainer.Instance.s_Path + SettingsContainer.Instance.s_RecoImgFolder +
                                                              txtPhotoPath.Text + @".jpg", ImreadModes.Color))
