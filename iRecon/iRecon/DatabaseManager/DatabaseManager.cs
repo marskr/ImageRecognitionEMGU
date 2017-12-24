@@ -16,11 +16,17 @@ namespace iRecon.DatabaseManager
         }
     }
 
+    /// <summary>
+    /// Abstract class which contains abstract method to create element and pass to database.
+    /// </summary>
     public abstract class CRUDOps
     {
         public abstract void Create(string s_imageTested, string s_imageTesting, int i_score, decimal d_matchTime);
     }
 
+    /// <summary>
+    /// Singleton which contains creation & sending to database element.
+    /// </summary>
     public sealed class ImageRecoResults : CRUDOps
     {
         private static ImageRecoResults Instance = null;

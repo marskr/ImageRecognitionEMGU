@@ -35,8 +35,16 @@ namespace iRecon
             ErrInfLogger.LockInstance.InfoLog("Aplication finished without major errors");
         }
 
+        /// <summary>
+        /// Creation of an instance which will store computation results list.
+        /// </summary>
         IRecoManager.IRecoManager IRM = new IRecoManager.IRecoManager();
 
+        /// <summary>
+        /// Here will be compared all basic library pics with test picture, which has to be recognized.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_DataProcess(object sender, RoutedEventArgs e)
         {
             ErrInfLogger.LockInstance.InfoLog("Start of the DataProcess");
@@ -58,6 +66,11 @@ namespace iRecon
             ErrInfLogger.LockInstance.InfoLog("End of the DataProcess");
         }
 
+        /// <summary>
+        /// Here all similarities between pictures will be showed in pop out window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_DataShow(object sender, RoutedEventArgs e)
         {
             ErrInfLogger.LockInstance.InfoLog("Start of the DataShow");
@@ -91,6 +104,12 @@ namespace iRecon
             ErrInfLogger.LockInstance.InfoLog("End of the DataShow");
         }
 
+        /// <summary>
+        /// The application will predict test pic type (class) based on list created in computations point 
+        /// (Compute image similarity).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Predict(object sender, RoutedEventArgs e)
         {
             ErrInfLogger.LockInstance.InfoLog("Start of the Predict");
@@ -135,6 +154,12 @@ namespace iRecon
             ErrInfLogger.LockInstance.InfoLog("End of the Predict");
         }
 
+        /// <summary>
+        /// The application will send result of computations (the result is the best result, similarly to Predict! 
+        /// button) to database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_SendToDB(object sender, RoutedEventArgs e)
         {
             ErrInfLogger.LockInstance.InfoLog("Start of the SendToDB");
@@ -163,6 +188,11 @@ namespace iRecon
             ErrInfLogger.LockInstance.InfoLog("End of the SendToDB");
         }
 
+        /// <summary>
+        /// The application will clear list created in computations.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Clear(object sender, RoutedEventArgs e)
         {
             ErrInfLogger.LockInstance.InfoLog("Start of the Clear");
