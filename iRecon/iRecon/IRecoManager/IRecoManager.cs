@@ -71,7 +71,7 @@ namespace iRecon.IRecoManager
                 long l_score;
                 double l_matchTime;
 
-                KeyValuePair<long, double> pair = ComputeImages(s_testImage, s_basicImage);
+                KeyValuePair<long, double> pair = ComputeImage(s_testImage, s_basicImage);
                 l_score = pair.Key;
                 l_matchTime = pair.Value;
             }
@@ -91,7 +91,7 @@ namespace iRecon.IRecoManager
         /// <param name="s_testImage"> The test image directory. </param>
         /// <param name="s_basicImage"> The basic library image directory. </param>
         /// <returns> Method returns a tuple, which contains score and matching time fields. </returns>
-        KeyValuePair<long, double> ComputeImages(string s_testImage, string s_basicImage)
+        KeyValuePair<long, double> ComputeImage(string s_testImage, string s_basicImage)
         {
             ErrInfLogger.LockInstance.InfoLog("Start of the ComputeImages");
 

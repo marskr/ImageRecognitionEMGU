@@ -41,9 +41,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Emgu.CV.World.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,6 +76,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DatabaseManager\DatabaseManager.cs" />
+    <Compile Include="EIASR_model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EIASR_model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EIASR_model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EIASR_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EIASR_model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EIASR_model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Image_reco.cs">
+      <DependentUpon>EIASR_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="IRecoManager\IRecoManager.cs" />
     <Compile Include="TimeManager\TimeManager.cs" />
     <Compile Include="XMLManager\XMLManager.cs" />
@@ -110,6 +138,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="EIASR_model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EIASR_model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EIASR_model.edmx.diagram">
+      <DependentUpon>EIASR_model.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -117,6 +153,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EIASR_model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EIASR_model.edmx</DependentUpon>
+      <LastGenOutput>EIASR_model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EIASR_model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EIASR_model.edmx</DependentUpon>
+      <LastGenOutput>EIASR_model.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="1000">
+        Title="MainWindow" Height="400" Width="1400">
     <Grid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
             <Button Click="btn_DataProcess" Margin="5,5,0,0" FontFamily="Arial" FontSize="16" Height="50" Width="200" VerticalAlignment="Top">
@@ -15,6 +15,12 @@
             </Button>
             <Button Click="btn_Predict" Margin="5,5,0,0" FontFamily="Arial" FontSize="16" Height="50" Width="200" VerticalAlignment="Top">
                 <TextBlock TextWrapping="Wrap" Text="Predict!" />
+            </Button>
+            <Button Click="btn_SendToDB" Margin="5,5,0,0" FontFamily="Arial" FontSize="16" Height="50" Width="200" VerticalAlignment="Top">
+                <TextBlock TextWrapping="Wrap" Text="Send result to DB!" />
+            </Button>
+            <Button Click="btn_Clear" Margin="5,5,0,0" FontFamily="Arial" FontSize="16" Height="50" Width="200" VerticalAlignment="Top">
+                <TextBlock TextWrapping="Wrap" Text="Clear results!" />
             </Button>
             <WrapPanel>
                 <TextBlock Margin="5, 15, 0, 0"  Text="Lib photo dir: " FontFamily="Arial" FontSize="16" Height="20" Width="100"/>
